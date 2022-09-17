@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {MarcaService} from '../marca.service';
+import {Marca} from '../entidades/marca';
 
 @Component({
   selector: 'll-home',
@@ -24,7 +26,13 @@ export class HomeComponent implements OnInit {
       }
     }
   };
-  constructor() {}
+  marcas!: Marca[];
+  marca = new Marca;
+  constructor(private servicio: MarcaService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.servicio.listarMarcas().subscribe(data => {
+      this.marcas = data;
+    });
+  }
 }
